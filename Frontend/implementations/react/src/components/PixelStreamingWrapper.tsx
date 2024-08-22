@@ -21,7 +21,7 @@ export const PixelStreamingWrapper = ({
     const [pixelStreaming, setPixelStreaming] = useState<PixelStreaming>();
     
     // A boolean state variable that determines if the Click to play overlay is shown:
-    const [clickToPlayVisible, setClickToPlayVisible] = useState(false);
+    const [clickToPlayVisible, setClickToPlayVisible] = useState(true);
 
     // Run on component mount:
     useEffect(() => {
@@ -31,6 +31,8 @@ export const PixelStreamingWrapper = ({
             const streaming = new PixelStreaming(config, {
                 videoElementParent: videoParent.current
             });
+
+            pixelStreaming?.reconnect()
             
             // register a playStreamRejected handler to show Click to play overlay if needed:
             streaming.addEventListener('playStreamRejected', () => {
@@ -65,25 +67,91 @@ export const PixelStreamingWrapper = ({
                 ref={videoParent}
             />
             {clickToPlayVisible && (
-                <div
+                <>
+                <button
                     style={{
                         position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
+                        bottom: '100px',
+                        left: '100px',
+                        width: '250px',
+                        height: '100px',
+                        backgroundColor: 'lightblue',
+                        color: 'black',
+                        borderRadius: '10px',
+                        fontSize: '16px',
+                        cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: 'pointer'
+                        justifyContent: 'center'
                     }}
                     onClick={() => {
                         pixelStreaming?.play();
                         setClickToPlayVisible(false);
                     }}
                 >
-                    <div>Click to play</div>
-                </div>
+                    New Sim
+                </button>
+
+                <button
+                    style={{
+                        position: 'absolute',
+                        bottom: '100px',
+                        left: '450px',
+                        width: '250px',
+                        height: '100px',
+                        backgroundColor: 'lightblue',
+                        color: 'black',
+                        borderRadius: '10px',
+                        fontSize: '16px',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                >
+                    Simulation Playback
+                </button>
+
+                <button
+                    style={{
+                        position: 'absolute',
+                        bottom: '100px',
+                        left: '800px',
+                        width: '250px',
+                        height: '100px',
+                        backgroundColor: 'lightblue',
+                        color: 'black',
+                        borderRadius: '10px',
+                        fontSize: '16px',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                >
+                    Tutorials
+                </button>
+
+                <button
+                    style={{
+                        position: 'absolute',
+                        bottom: '100px',
+                        left: '1150px',
+                        width: '250px',
+                        height: '100px',
+                        backgroundColor: 'lightblue',
+                        color: 'black',
+                        borderRadius: '10px',
+                        fontSize: '16px',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                >
+                    Settings
+                </button>
+                </>
             )}
         </div>
     );
